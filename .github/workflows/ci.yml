@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies (Auth Service)
+      run: |
+        cd services/auth-service
+        pip install -r requirements.txt
+        
+    - name: Install dependencies (Community Service)
+      run: |
+        cd services/community-service
+        pip install -r requirements.txt
+
+    # Add similar steps for other services...
+    
+    - name: Run Tests (Placeholder)
+      run: |
+        echo "Running tests..."
+        # pytest services/auth-service/tests/
+        # pytest services/community-service/tests/
